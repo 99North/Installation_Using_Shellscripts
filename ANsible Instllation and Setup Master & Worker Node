@@ -1,0 +1,38 @@
+FIRST RUN THIS SCRIPT BELLOW
+=======================================================================================================================================================================
+#! /bin/bash
+sudo apt-add-repository ppa:ansible/ansible -y
+sudo apt update -y 
+sudo apt install ansible -y
+=======================================================================================================================================================================
+
+[NOW ON MASTER NODE DO THIS BELLOW STEPS]
+-Go to this dir::  vim /etc/ansible/hosts  and add this line
+[web]
+136.865.789.087 (this is the private ip of node1)
+
+-Now run this::  ssh-keygen     and hit enter
+
+=======================================================================================================================================================================
+
+[NOW ON WORKER NODE DO THIS STEP BELLOW TO ADD IT AS A ANSIBLE REMOTE HOST]
+-Go to node1 and run this and set the passwrd::  passwd
+-Now edit this file and chnage these two lines bellow as directed::  vim /etc/ssh/sshd_config
+
+PermitRootLogin yes   (uncommented it)
+
+PasswordAuthentication yes  (change it no to yes)
+
+-Now run this::   service sshd restart 
+
+=======================================================================================================================================================================
+
+[NOW ON MASTER NODE AGAIN DO THESE STEPS]
+-Now run this and give the password you set it on node1::  ssh-copy-id -i /home/ubuntu/.ssh/id_rsa.pub root@123.123.123.123 (pvt ip of node1)
+
+-Now go to /etc/ansible and run:: vim hosts
+
+-Now add this line:: [webserver]
+172.31.62.51 ansible_ssh_user=root ansible_ssh_pass=9090
+
+-Now run it to test::  ssh root@172.31.15.160  (node1 pvt ip)
