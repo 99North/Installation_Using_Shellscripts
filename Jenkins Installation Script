@@ -23,6 +23,9 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 
 
+
+
+=========================================================================================================================================================================
 ::: NOTE :::
 1. To run this shellscript first create a shellscript file using vi editor by running the command   << vi jenkins_install.sh >>  and paste the code above
 2. Now run this command to give execute permission to the shellscript file::  sudo chmod +x jenkins_install.sh
