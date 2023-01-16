@@ -1,0 +1,35 @@
+apt-get update -y
+
+apt-get install openjdk-8-jdk -y
+
+java -version
+
+useradd -M -d /opt/nexus -s /bin/bash -r nexus
+
+echo "nexus ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/nexus
+
+mkdir /opt/nexus
+
+wget https://sonatype-download.global.ssl.fastly.net/repository/downloads-prod-group/3/nexus-3.29.2-02-unix.tar.gz
+
+tar xzf nexus-3.29.2-02-unix.tar.gz -C /opt/nexus --strip-components=1
+
+chown -R nexus:nexus /opt/nexus
+
+nano /opt/nexus/bin/nexus.vmoptions
+=======================================================================================================================================================================
+Now REMOVE ALL .. TO . AND SAVE THE FILE
+
+NOW RUN THESE COMMAND ONE BY ONE ::
+Save and close the file then edit the nexus.rc file and define the run as user:
+nano /opt/nexus/bin/nexus.rc
+Uncomment and change the following line with nexus user:
+run_as_user="nexus"
+
+
+NOW RUN THIS ONE BY ONE ::
+sudo -u nexus /opt/nexus/bin/nexus start
+
+tail -f /opt/nexus/sonatype-work/nexus3/log/nexus.log
+
+NOW DO NOT press ctrl+C (nenxus defult port is 8081)
